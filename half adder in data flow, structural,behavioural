@@ -1,1 +1,67 @@
+/////// Data flow/////
+
+module ha (a,b,sum,carry);
+input a,b;
+output sum;
+output carry;
+
+assign sum = a^b;
+assign carry = a&b;
+
+endmodule
+
+
+///// behavioural//////
+
+module ha (a,b,sum,carry);
+input a,b;
+output reg sum;
+output reg carry;
+
+always @(*) begin
+
+sum = a^b;
+carry = a&b;
+
+end
+endmodule
+
+/////////////structural///////////
+
+module ha (input a,b,
+           output sum,carry);
+
+xor (sum,a,b);
+and (carry,a,b);
+
+endmodule
+
+////////testbench///////
+module hatb;
+
+reg a,b;
+wire sum,carry;
+
+ha uut(.a(a),.b(b),.sum(sum),.carry(carry));
+
+initial begin
+
+$monitor ($time,"a=%b,b=%b,sum=%b,carry=%b",a,b,sum,carry);
+
+    a=1'b0;b=1'b0;
+#5  a=1'b0;b=1'b1;
+#5  a=1'b1;b=1'b0;
+#5  a=1'b1;b=1'b1;
+
+end
+endmodule
+
+
+///////////////run file//////
+
+vlib work
+vlog ha.v hatb.v +acc
+vsim work.hatb -l run
+add wave -r *
+run -all
 
