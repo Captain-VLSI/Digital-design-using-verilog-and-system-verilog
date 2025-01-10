@@ -1,0 +1,37 @@
+////////////design code////////////
+module demux12 (input a,
+                input s,
+                output y1,y2
+                );
+assign y1 = (s==0)? a:0;
+assign y2 = (s==1)? a:0;
+
+endmodule
+
+//////////testbench////////
+module demux12tb ();
+reg a;
+reg s;
+wire y1,y2;
+
+demux12 dut (.*);
+
+initial begin
+$monitor($time,"a=%b,s=%b,y1=%b,y2=%b",a,s,y1,y2);
+
+ s=0; a=0; #10;
+ s=0; a=1; #10;
+ s=1; a=0; #10;
+ s=1; a=1; #10;
+
+#50;
+$finish();
+end
+endmodule
+
+//////////run file//////
+vlib work
+vlog demux12.v demux12tb.v +acc
+vsim work.demux12tb -l
+add wave -r *
+run -all
