@@ -1,17 +1,25 @@
-module demux18t_b;
+module demux18tb;
 reg i;
-reg sel0,sel1,sel2;
-wire y0,y1,y2,y3,y4,y5,y6,y7;
+reg [2:0]sel;
+wire [7:0]y;
 
-demux18 demux(.*);
-reg[3:0]j;
-initial
-begin 
-$monitor($time," the inputs are sel0=%b,sel1=%b,sel2=%b,i=%b, the outputs are  y0=%b,y1=%b,y2=%b,y3=%b,y4=%b,y5=%b,y6=%b,y7=%b", sel0,sel1,sel2,i,y0,y1,y2,y3,y4,y5,y6,y7);
-for( j=0;j<8;j=j+1)
-begin
-#10{sel0,sel1,sel2}=j;
-i=1'b1;
-end
-end
+demux18 dut (.*);
+
+initial begin
+
+        $monitor("$time=%0t,i=%b,sel=%b,y=%b",$time,i,sel,y);
+
+     #10 i=1; sel = 3'b000;
+     #10 i=1; sel = 3'b001;
+     #10 i=1; sel = 3'b010;
+     #10 i=1; sel = 3'b011;
+     #10 i=1; sel = 3'b100;
+     #10 i=1; sel = 3'b101;
+     #10 i=1; sel = 3'b110;
+     #10 i=1; sel = 3'b111;
+
+     #10 i=0; sel = 3'b011;
+
+    $finish();
+         end
 endmodule
