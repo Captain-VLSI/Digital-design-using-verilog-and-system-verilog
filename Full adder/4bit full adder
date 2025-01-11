@@ -1,1 +1,10 @@
+module fulladder_4b (input [3:0]a,
+                     input [3:0]b,
+                     input cin,
+                     output [3:0]sum,
+                     output cout);
 
+assign sum = a^b^cin;
+assign cout = a&b|b&cin|cin&a;
+
+endmodule
