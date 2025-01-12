@@ -1,0 +1,23 @@
+module fs_4b_tb ();
+reg [3:0]a,b;
+reg bin;
+wire [3:0]diff;
+wire bout;
+
+fs_4b dut(.*);
+
+initial begin
+        $monitor("$time=%0t,a=%b,b=%b,bin=%b,diff=%b,bout=%b",$time,a,b,bin,diff,bout);
+
+     #10   {a,b}={4'b0000}; bin=1'b0;
+     #10   {a,b}={4'b0001}; bin=1'b1;
+     #10   {a,b}={4'b0010}; bin=1'b0;
+     #10   {a,b}={4'b0011}; bin=1'b0;
+     #10   {a,b}={4'b0100}; bin=1'b1;
+     #10   {a,b}={4'b0101}; bin=1'b0;
+     #10   {a,b}={4'b0110}; bin=1'b0;
+
+#100;
+$finish();
+         end
+endmodule       
