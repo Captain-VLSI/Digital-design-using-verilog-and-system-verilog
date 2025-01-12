@@ -1,0 +1,9 @@
+module fs_4b (input [3:0]a,b,
+              input bin,
+              output [3:0]diff,
+              output bout);
+
+assign diff = a^b^bin;
+assign bout = (~a&b)|(~(a^b)&bin);
+
+endmodule
