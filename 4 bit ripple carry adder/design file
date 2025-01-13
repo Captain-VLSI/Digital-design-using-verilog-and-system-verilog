@@ -1,1 +1,24 @@
+module fa (input a,b,
+               input cin,
+               output sum,
+               output cout);
 
+assign {sum,cout} = {a^b^cin,((a&b)|(b&cin)|(cin&a))};
+
+endmodule
+
+module ripple_carry_adder #(parameter size = 4) (input [-1:0]a,b,
+                                                 input cin,
+                                                 output [-1:0]sum,
+                                                 output cout);
+genvar g;
+
+fa fa0(a[0],b[0],cin,sum[0],cout[0]);
+   generate // this will instatiate full adder size -1 times
+
+for (g=1; g<size; g=g+1)
+    begin
+    fa fa(a[g],b[g],cin[-g],sum[g],cout[g]);
+    end
+   endgenerate
+endmodule  
