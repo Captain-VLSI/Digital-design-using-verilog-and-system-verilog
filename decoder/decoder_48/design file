@@ -1,1 +1,13 @@
+module decoder_38 (input en,a,b,c,
+                   output [7:0]y);
 
+assign y[0] = en & (~a) & (~b) & (~c);
+assign y[1] = en & (~a) & (~b) & (c);
+assign y[2] = en & (~a) & (b) & (~c);
+assign y[3] = en & (~a) & (b) & (c);
+assign y[4] = en & (a) & (~b) & (~c);
+assign y[5] = en & (a) & (~b) & (c);
+assign y[6] = en & (a) & (b) & (~c);
+assign y[7] = en & (a) & (b) & (c);
+
+endmodule
