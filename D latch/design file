@@ -1,1 +1,12 @@
+module d_latch_bh (input d,
+                   input en,
+                   input rstn,
+                   output reg q);
 
+always @ (d or en or rstn)
+if (!rstn)
+    q<=0;
+    else
+        if(en)
+            q<=d;
+endmodule  
