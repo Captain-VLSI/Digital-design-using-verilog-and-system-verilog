@@ -1,1 +1,13 @@
+module sr_lr (input clk,rst,si
+               ouput reg so);
+reg[4:0] sr;
 
+always @(posedge clk)
+      begin
+           if(rst)
+                  so<=5'd0;
+            else
+                  so<={sr[3:0],si};
+      end
+assign so=sr;
+endmodule
