@@ -3,6 +3,7 @@ module fa (input a,b,
                output sum,
                output cout);
 
+
 assign {sum,cout} = {a^b^cin,((a&b)|(b&cin)|(cin&a))};
 
 endmodule
