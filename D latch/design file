@@ -9,4 +9,4 @@ if (!rstn)
     else
         if(en)
             q<=d;
-endmodule 
+endmodule
