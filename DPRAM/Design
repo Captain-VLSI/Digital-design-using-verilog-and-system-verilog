@@ -1,0 +1,40 @@
+//////it has two sets of address and data bus
+module dual_port_ram(
+                     input [7:0] data_a, data_b, //data bus a and data bus b
+                     input [5:0] addr_a, addr_b, //address bus a and b
+                     input we_a, we_b, // separated write and read signal
+                     input clk,
+                     output reg [7:0] q_a, q_b //two sets of output data bus
+                     );
+
+/////define the ram
+reg [7:0]ram[63:0];  //64*8 bit;
+
+///port a operation
+always @(posedge clk)
+begin
+    if (we_a)  //high level is write
+        begin
+             ram[addr_a] <= data_a; //save input data a input memory
+        end
+        else
+            begin
+            q_a <= ram[addr_a]; ///read data out;
+            end
+       end
+
+
+       ///port b
+       always @(posedge clk)
+       begin
+           if(we_b)//high level is write
+           begin
+                ram[addr_b] <= data_b; //save input data b input memory
+           end
+           else
+               begin
+               q_b <= ram[addr_b]; //read data out
+               end
+        end
+
+endmodule  
