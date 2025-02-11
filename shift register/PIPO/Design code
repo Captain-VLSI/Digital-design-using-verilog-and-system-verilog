@@ -1,1 +1,16 @@
+module PIPO (
+    input wire clk,
+    input wire rst,
+    input wire [3:0] d_in,  // 4-bit parallel input
+    output reg [3:0] d_out  // 4-bit parallel output
+);
+
+always @(posedge clk or posedge rst) begin
+    if (rst)
+        d_out <= 4'b0000;  // Reset output to 0
+    else
+        d_out <= d_in;  // Store input data on rising edge of clock
+end
+
+endmodule
 
