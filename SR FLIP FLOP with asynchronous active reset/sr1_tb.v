@@ -4,7 +4,7 @@ reg clk,rst;
 reg s,r;
 wire q;
 
-srff aa(.*);
+       srff aa(.*);
 
 always #5 clk=~clk;
 
