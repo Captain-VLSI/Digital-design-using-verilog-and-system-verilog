@@ -1,0 +1,21 @@
+module tb_down_counter;
+reg clk,rst;
+wire count;
+
+down_counter dut (.clk(clk),.rst(rst),.count(count));
+
+always #5 clk=~clk;
+
+initial begin
+clk=0; rst=0;
+
+#10 rst = 1;
+#50 rst = 0;
+#50 rst = 1;
+#50 
+$finish;
+initial
+begin
+     $monitor("time:%0t | count:%0b", $time, count);
+end
+endmodule
