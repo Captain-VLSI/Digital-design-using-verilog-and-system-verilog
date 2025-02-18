@@ -1,1 +1,12 @@
-
+module down_counter (input clk,
+                     input rst,
+                      output count);
+always @(posedge clk)
+if(rst)
+count<=4'b1111;
+else if(count == 4'b0000)
+count<=4'b1111;
+else
+count<= count - 1;
+end
+endmodule
