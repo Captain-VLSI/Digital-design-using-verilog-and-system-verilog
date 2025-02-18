@@ -1,0 +1,18 @@
+module tb_down_counter();
+wire count;
+reg clk,rst;
+
+down_counter dut(.clk(clk),.rst(rst),.count(count));
+
+always #5 clk=~clk;
+initial begin
+clk=0; rst=0; count=0;
+end
+
+intial begin
+#10 rst = 1;
+#50 rst = 0;
+#100;
+$finish;
+end
+endmodule
