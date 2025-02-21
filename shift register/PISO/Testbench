@@ -1,0 +1,35 @@
+module tb_piso_shift_register;
+    reg clk, reset, load;
+    reg [3:0] parallel_in;
+    wire serial_out;
+
+    // Instantiate the PISO module
+    piso_shift_register uut (
+        .clk(clk),
+        .reset(reset),
+        .load(load),
+        .parallel_in(parallel_in),
+        .serial_out(serial_out)
+    );
+
+    // Clock Generation
+    always #5 clk = ~clk;  // 10ns clock period
+
+    initial begin
+        clk = 0;
+        reset = 1;
+        load = 0;
+        parallel_in = 4'b1011;
+        #10 reset = 0;  // Release reset
+
+        #10 load = 1;    // Load parallel data
+        #10 load = 0;    // Start shifting out serially
+
+        #50 $finish; // End simulation
+    end
+
+    initial begin
+        $monitor("Time = %0t | Load = %b | Shift Reg = %b | Serial Out = %b", 
+                 $time, load, parallel_in, serial_out);
+    end
+endmodule
