@@ -1,0 +1,22 @@
+module tb_up_down_counter;
+    reg clk, reset, up_down;
+    wire [3:0] count;
+    up_down_counter uut (.clk(clk), .reset(reset), .up_down(up_down), .count(count));
+    always #5 clk = ~clk;  // clock generation of 10ns clock period
+
+    initial begin
+        clk = 0;
+        reset = 1;
+        up_down = 1;
+        #10 reset = 0;  // Release reset
+        
+        #50 up_down = 0; // Switch to Down counting
+        #50 up_down = 1; // Switch back to Up counting
+
+        #50 $finish; 
+    end
+
+    initial begin
+        $monitor("Time = %0t | Count = %b | Up/Down = %b", $time, count, up_down);
+    end
+endmodule
