@@ -1,0 +1,21 @@
+module arbitrary_counter (
+    input wire clk,    // Clock input
+    input wire rst,    // Reset (Active High)
+    output reg [3:0] count  // 4-bit output count
+);
+
+    always @(posedge clk or posedge rst) begin
+        if (rst)
+            count <= 4'b0011;  // Start at 3
+        else begin
+            case (count)
+                4'b0011: count <= 4'b0111;  // 3 -> 7
+                4'b0111: count <= 4'b1100;  // 7 -> 12
+                4'b1100: count <= 4'b0101;  // 12 -> 5
+                4'b0101: count <= 4'b1010;  // 5 -> 10
+                4'b1010: count <= 4'b0011;  // 10 -> 3 (Loop back)
+                default: count <= 4'b0011;  // Reset if undefined state
+            endcase
+        end
+    end
+endmodule
